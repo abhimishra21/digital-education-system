@@ -1,0 +1,26 @@
+{
+  "name": "fabric-samples",
+  "version": "1.0.0",
+  "description": "[//]: # (SPDX-License-Identifier: CC-BY-4.0)",
+  "main": "academic-records-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyperledger/fabric-samples.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyperledger/fabric-samples/issues"
+  },
+  "homepage": "https://github.com/hyperledger/fabric-samples#readme",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.13.4",
+    "@hyperledger/fabric-gateway": "^1.8.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

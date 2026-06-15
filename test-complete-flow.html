@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Decryption Flow Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .student-info {
+            background: #e2e3e5;
+            border: 1px solid #d6d8db;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .field {
+            display: flex;
+            margin: 5px 0;
+        }
+        .field-label {
+            font-weight: bold;
+            width: 150px;
+        }
+        .field-value {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 QR Decryption Flow Test</h1>
+    
+    <div class="test-container">
+        <h2>Test Results</h2>
+        <div id="status" class="info">Testing QR decryption flow...</div>
+        <div id="result" class="student-info">
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script>
+        async function testQRDecryption() {
+            const statusDiv = document.getElementById('status');
+            const resultDiv = document.getElementById('result');
+            
+            // Your actual encrypted data
+            const encryptedData = "wAPbnX7vhHfcNuxo6nxUwhLOGEqHb9aDhx5uUCibqT0CtfoAhUieNizG%2F31dQq9qvZaaHkcIfvth4beoAmP1kt7d%2F5RizZmdbzNFo%2FfRv%2BnRgjck7Yap8RtIwgwiNcZJBFF0cB5XcSNFwqx%2BSU4W2RMb8hvgH8Z9OKJOOsGN7g%2FuPXl4ZyuRsFP2buVgS5FWCH6EKunB1jC5IAURXL5IlEl3d%2F4F5pUIFHjfE2uQMglPnLh1%2FXJPJZJeyfeQHbk2";
+            
+            try {
+                statusDiv.textContent = 'Decrypting QR code...';
+                statusDiv.className = 'info';
+                
+                // Call the API
+                const response = await fetch(`http://135.235.51.143:3002/api/academic/records/decrypt-url?data=${encodeURIComponent(encryptedData)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    statusDiv.textContent = '✅ QR Decryption Successful!';
+                    statusDiv.className = 'success';
+                    
+                    const record = data.data;
+                    const qrData = data.qrData;
+                    
+                    resultDiv.innerHTML = `
+                        <h3>📄 Student Marksheet</h3>
+                        <div class="field">
+                            <div class="field-label">Name:</div>
+                            <div class="field-value">${record.cname || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">Enrollment:</div>
+                            <div class="field-value">${record.enrollmentNo || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">Roll No:</div>
+                            <div class="field-value">${record.rollno || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">Semester:</div>
+                            <div class="field-value">${record.cycle || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">Result:</div>
+                            <div class="field-value">${record.resultStatus || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">Total Marks:</div>
+                            <div class="field-value">${record.totalmarks || 'N/A'}/${record.totalmaxmarks || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">Source:</div>
+                            <div class="field-value">${data.source || 'N/A'}</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-label">All Semesters:</div>
+                            <div class="field-value">${data.allSemesters ? data.allSemesters.length : 0} records found</div>
+                        </div>
+                        <hr>
+                        <h4>🔍 Decrypted QR Data:</h4>
+                        <pre>${JSON.stringify(qrData, null, 2)}</pre>
+                    `;
+                } else {
+                    statusDiv.textContent = '❌ QR Decryption Failed';
+                    statusDiv.className = 'error';
+                    resultDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                statusDiv.textContent = '❌ Test Failed';
+                statusDiv.className = 'error';
+                resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        // Run the test when page loads
+        document.addEventListener('DOMContentLoaded', testQRDecryption);
+    </script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HPU Result - Detailed Marks Certificate</title>
+<style>
+  /* Page setup */
+  @page { size: A4; margin: 16mm; }
+  body { font-family: Arial, Helvetica, sans-serif; background:#efefef; }
+  .page {
+    width: 210mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    margin: 8mm auto;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 0 2mm rgba(0,0,0,0.08);
+    padding: 10mm;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('hpu_logo.png') center/60% auto no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    transform: rotate(-0.5deg);
+  }
+  .topline {
+    display:flex; justify-content: space-between; align-items:center;
+    font-size: 12px; margin-bottom: 4mm;
+  }
+  .topline .left { font-weight: 600; }
+  .topline .right { font-weight: 600; }
+
+  .title-block { text-align:center; border:1px solid #000; padding: 8mm 52mm 12mm 4mm; position: relative; overflow: visible; }
+  .title-block .badge { position:absolute; left:6mm; top:4.5mm; width: 16.5mm; height: 16.5mm; background: url('hpu_logo.png') center/contain no-repeat; border: 0; border-radius: 0; }
+  .title-block h1 { font-size: 16px; margin:0; font-weight:700; }
+  .title-block h2 { font-size: 12px; margin:2px 0 0; font-weight:700; }
+  .title-block h3 { font-size: 12px; margin:2px 0 0; font-weight:700; }
+
+  .head-grid { display:grid; grid-template-columns: 1fr 28mm; gap: 4mm; border:1px solid #000; border-top:0; padding: 4mm; }
+  .qr { width: 34mm; height: 32mm; border:1px solid #000; background: #fff; margin-left:auto; display:flex; align-items:center; justify-content:center;}
+
+  .details { display:grid; grid-template-columns: 1fr 28mm; gap: 4mm; border:1px solid #000; border-top:0; padding: 4mm; align-items:start; }
+  .details .rows { font-size: 11px; }
+  .detail-row { display:grid; grid-template-columns: 36mm 3mm 1fr 28mm 3mm 1fr; gap: 1mm; margin: 1mm 0; }
+  .detail-row span.label { font-weight:700; }
+  .photo-sign { display:flex; flex-direction:column; gap: 6mm; align-items:center; }
+  .photo { width: 28mm; height: 34mm; border:1px solid #000; background:#f6f6f6 url('') center/cover no-repeat; }
+  .sign { width: 28mm; height: 12mm; border:1px solid #000; background:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; color:#666; }
+
+  .section-title { border:1px solid #000; border-top:0; padding: 2mm 3mm; font-weight:700; font-size:12px; }
+
+  table { width:100%; border-collapse: collapse; font-size: 11px; }
+  .marks thead th { border:1px solid #000; background:#f3f3f3; padding: 2mm 1mm; text-align:center; }
+  .marks tbody td { border:1px solid #000; padding: 1.5mm 1mm; }
+  .marks tfoot td { border:1px solid #000; padding: 1.5mm 1mm; font-weight:700; }
+  .center { text-align:center; }
+  .right { text-align:right; }
+
+  .footer-info { border:1px solid #000; border-top:0; padding: 2mm 3mm; font-size: 11px; }
+  .legend { width:100%; border:1px solid #000; border-top:0; font-size: 10.5px; }
+  .legend td, .legend th { border:1px solid #000; padding: 1.5mm 1mm; text-align:center; }
+
+  .footline { display:flex; justify-content:space-between; align-items:center; margin-top: 3mm; font-size: 11px; }
+  .controller-sign { width: 30mm; height: 12mm; background: url('sign_controller.png') center/contain no-repeat; border: 0; }
+
+  .note { font-size: 10px; color:#333; margin-top: 4mm; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="topline">
+      <div class="left">Serial Number:</div>
+      <div class="right">Exam Roll Number :</div>
+    </div>
+
+    <div class="title-block">
+      <div class="badge" aria-label="HPU Logo"></div>
+      <h1>Himachal Pradesh University</h1>
+      <h2>NAAC Accredited 'A' Grade University</h2>
+      <h3>Result - Cum - Detailed Marks Certificate</h3>
+      <div class="qr" style="position:absolute; right:2mm; top:0mm"></div>
+    </div>
+
+    <div class="details">
+      <div class="rows">
+        <div class="detail-row"><span class="label">Name of Examination</span><span>:</span><span></span><span class="label">Semester</span><span>:</span><span></span></div>
+        <div class="detail-row"><span class="label">Candidate's Name</span><span>:</span><span></span><span class="label">Exam Type</span><span>:</span><span></span></div>
+        <div class="detail-row"><span class="label">Father's Name</span><span>:</span><span></span><span class="label">Capacity</span><span>:</span><span></span></div>
+        <div class="detail-row"><span class="label">Mother Name</span><span>:</span><span></span><span class="label">Date of Birth</span><span>:</span><span></span></div>
+        <div class="detail-row"><span class="label">Registration Number</span><span>:</span><span></span><span class="label">College Name</span><span>:</span><span></span></div>
+        <div class="detail-row"><span class="label">Exam Center Name</span><span>:</span><span></span><span class="label">Exam Month and Year</span><span>:</span><span></span></div>
+
+      </div>
+      <div class="photo-sign">
+        <div class="photo"></div>
+        <div class="sign">Candidate's Signature</div>
+      </div>
+    </div>
+
+    <div class="section-title">Paper Detail</div>
+
+    <table class="marks">
+      <thead>
+        <tr>
+          <th rowspan="2" style="width:8mm">S.No</th>
+          <th rowspan="2" style="width:12mm">Paper Code</th>
+          <th rowspan="2">Paper Name</th>
+          <th rowspan="2" style="width:22mm">Category</th>
+          <th colspan="6">Marks Obtained</th>
+        </tr>
+        <tr>
+          <th style="width:12mm"></th>
+          <th style="width:12mm">TH</th>
+          <th style="width:12mm">IA</th>
+          <th style="width:12mm">PR</th>
+          <th style="width:12mm">GR</th>
+          <th style="width:14mm">TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center" rowspan="3">1</td>
+          <td class="center" rowspan="3">I</td>
+          <td rowspan="3">Indian Tribes in Historical Perspective</td>
+          <td class="center" rowspan="3">Compulsory</td>
+          <td class="center">MO</td>
+          <td class="center">36</td>
+          <td class="center">23</td>
+          <td class="center">-</td>
+          <td class="center">0</td>
+          <td class="center">59</td>
+        </tr>
+        <tr>
+          <td class="center">MPM</td>
+          <td class="center">30</td>
+          <td class="center">10</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">40</td>
+        </tr>
+        <tr>
+          <td class="center">MM</td>
+          <td class="center">75</td>
+          <td class="center">25</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">100</td>
+        </tr>
+        <tr>
+          <td class="center" rowspan="3">2</td>
+          <td class="center" rowspan="3">II</td>
+          <td rowspan="3">Tribal Social Systems in India</td>
+          <td class="center" rowspan="3">Compulsory</td>
+          <td class="center">MO</td>
+          <td class="center">36</td>
+          <td class="center">22</td>
+          <td class="center">-</td>
+          <td class="center">0</td>
+          <td class="center">58</td>
+        </tr>
+        <tr>
+          <td class="center">MPM</td>
+          <td class="center">30</td>
+          <td class="center">10</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">40</td>
+        </tr>
+        <tr>
+          <td class="center">MM</td>
+          <td class="center">75</td>
+          <td class="center">25</td>
+          <td class="center">-</td>
+          <td class="center">-</td>
+          <td class="center">100</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="8" class="right">Total Marks</td>
+          <td class="center"></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="footer-info">
+      <div class="detail-row" style="grid-template-columns: 30mm 3mm 1fr;">
+        <span class="label">Result</span><span>:</span><span></span>
+      </div>
+
+      <div class="detail-row" style="grid-template-columns: 20mm 3mm 1fr 20mm 3mm 1fr;">
+        <span class="label">Verified by</span><span>:</span><span>A R Examination-II,Branch,Himachal Pradesh University</span>
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="footline">
+        <div style="display:flex; gap:10mm; align-items:center;">
+          <div>Signature of Controller of Examinations</div>
+          <div class="controller-sign"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <table class="legend">
+      <tr>
+        <th>TH</th><td>Theory</td>
+        <th>MPM</th><td>Minimum Passing Marks</td>
+        <th>A.Abs</th><td>Absent</td>
+        <th>RLA</th><td>Result late due to awards</td>
+      </tr>
+      <tr>
+        <th>IA</th><td>Internal Assessment</td>
+        <th>MM</th><td>Maximum Marks</td>
+        <th>UMC/U</th><td>Unfair means case</td>
+        <th>RLA</th><td>Result late due to IA</td>
+      </tr>
+      <tr>
+        <th>PR</th><td>Practical</td>
+        <th>MO</th><td>Marks Obtained</td>
+        <th>*/GR</th><td>Grace</td>
+        <th>RCC</th><td>Reappear/Cancelled</td>
+      </tr>
+      <tr>
+        <th>MF</th><td>Reval Marks</td>
+        <td colspan="6"></td>
+      </tr>
+    </table>
+
+    <div class="note">
+      In case of any discrepancy marks/result, the Consolidated Marks Sheet (CMC) provided at completion of Course by the University will be considered final. This is Computer generated, so does not require signature.
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+(async () => {
+  const render = (rec) => {
+    if (!rec) return false;
+    try {
+      const get = (obj, path, fallback='') => { try { return path.split('.').reduce((o,k)=> (o && o[k] != null ? o[k] : null), obj) ?? fallback; } catch { return fallback; } };
+      const toNum = (v) => { if (v === null || v === undefined) return null; if (typeof v === 'string' && (v.trim() === '-' || v.trim() === '')) return null; const n = Number(v); return Number.isNaN(n) ? null : n; };
+
+      const papers = Array.isArray(rec?.papersJson) ? rec.papersJson : (Array.isArray(rec?.marksDetails) ? rec.marksDetails : []);
+
+      // Fill topline
+      const serial = get(rec, 'srNo', get(rec, 'serialNumber', ''));
+      const roll = get(rec, 'rollno', get(rec, 'examRollNumber', ''));
+      const left = document.querySelector('.topline .left');
+      const right = document.querySelector('.topline .right');
+      if (left) left.textContent = `Serial Number:${serial}`;
+      if (right) right.textContent = `Exam Roll Number :${roll}`;
+
+      // Fill details
+      const degree = get(rec, 'degree', get(rec, 'examination.name', ''));
+      const semester = get(rec, 'cycle', get(rec, 'examination.semester', '')) || '';
+      const cname = get(rec, 'cname', get(rec, 'candidate.name', ''));
+      const examType = get(rec, 'examType', get(rec, 'resultType', '')) || '';
+      const fname = get(rec, 'fname', get(rec, 'candidate.fatherName', ''));
+      const capacity = get(rec, 'capacity', get(rec, 'examination.capacity', '')) || '';
+      const mname = get(rec, 'mname', get(rec, 'candidate.motherName', ''));
+      const regNo = get(rec, 'univRegNO', get(rec, 'candidate.registrationNumber', ''));
+      const dob = get(rec, 'dob', get(rec, 'candidate.dateOfBirth', ''));
+      const college = get(rec, 'collegename', get(rec, 'examination.collegeName', ''));
+      const center = get(rec, 'centername', get(rec, 'examination.examCenterName', ''));
+      const examMonth = (rec?.examMonth ? String(rec.examMonth) : '').trim();
+      const examYear = (rec?.examYear ? String(rec.examYear) : '').trim();
+      const examMonthYear = examMonth || examYear ? `${examMonth} ${examYear}`.trim() : (get(rec, 'examination.examMonthYear', ''));
+
+      const detailRows = document.querySelectorAll('.details .rows .detail-row');
+      if (detailRows[0]) { const spans = detailRows[0].querySelectorAll('span'); if (spans[2]) spans[2].textContent = degree; if (spans[5]) spans[5].textContent = semester; }
+      if (detailRows[1]) { const spans = detailRows[1].querySelectorAll('span'); if (spans[2]) spans[2].textContent = cname; if (spans[5]) spans[5].textContent = examType; }
+      if (detailRows[2]) { const spans = detailRows[2].querySelectorAll('span'); if (spans[2]) spans[2].textContent = fname; if (spans[5]) spans[5].textContent = capacity; }
+      if (detailRows[3]) { const spans = detailRows[3].querySelectorAll('span'); if (spans[2]) spans[2].textContent = mname; if (spans[5]) spans[5].textContent = dob; }
+      if (detailRows[4]) { const spans = detailRows[4].querySelectorAll('span'); if (spans[2]) spans[2].textContent = regNo; if (spans[5]) spans[5].textContent = college; }
+      if (detailRows[5]) { const spans = detailRows[5].querySelectorAll('span'); if (spans[2]) spans[2].textContent = center; if (spans[5]) spans[5].textContent = examMonthYear; }
+
+      // Marks table + dynamic totals
+      const tbody = document.querySelector('table.marks tbody');
+      let sumObtained = 0;
+      let sumMax = 0;
+      if (tbody) {
+        tbody.innerHTML = '';
+        const buildRows = (paper, idx) => {
+          const sNo = paper.sNo || idx + 1;
+          const paperCode = paper.paperCode || paper.paper_code || '';
+          const paperName = paper.paperName || paper.paper_name || '';
+          const category = paper.category || paper.papernature || 'Compulsory';
+          const th = toNum(paper.marksObtained?.TH ?? paper.th);
+          const ia = toNum(paper.marksObtained?.IA ?? paper.ia);
+          const pr = paper.marksObtained?.PR ?? paper.pr ?? '-';
+          const gr = paper.marksObtained?.GR ?? paper.gr ?? '-';
+          const total = paper.marksObtained?.TOTAL ?? paper.totalmarkspaperwise ?? ((th ?? 0) + (ia ?? 0) + (toNum(gr) ?? 0));
+
+          // Strictly use API-provided marks for MPM/MM (no hardcoded defaults)
+          const mpmTH = toNum(paper.thmpm);
+          const mpmIA = toNum(paper.iampm);
+          const mpmPR = toNum(paper.prmpm);
+          const mmTH = toNum(paper.thmm);
+          const mmIA = toNum(paper.iamm);
+          const mmPR = toNum(paper.prmm);
+
+          const mpm = toNum(paper.totalpassingmarkspaperwise) ?? ((mpmTH ?? 0) + (mpmIA ?? 0) + (mpmPR ?? 0));
+          const mm = toNum(paper.totalmaxmarkspaperwise) ?? ((mmTH ?? 0) + (mmIA ?? 0) + (mmPR ?? 0));
+
+          // accumulate totals
+          const obtainedNum = toNum(total) ?? 0;
+          sumObtained += obtainedNum;
+          sumMax += Number.isFinite(mm) ? mm : 100;
+
+          const row1 = document.createElement('tr');
+          row1.innerHTML = `
+            <td class=\"center\" rowspan=\"3\">${sNo}</td>
+            <td class=\"center\" rowspan=\"3\">${paperCode || '-'}</td>
+            <td rowspan=\"3\">${paperName}</td>
+            <td class=\"center\" rowspan=\"3\">${category}</td>
+            <td class=\"center\">MO</td>
+            <td class=\"center\">${th ?? '-'}</td>
+            <td class=\"center\">${ia ?? '-'}</td>
+            <td class=\"center\">${pr ?? '-'}</td>
+            <td class=\"center\">${gr ?? '-'}</td>
+            <td class=\"center\">${total ?? '-'}</td>`;
+
+          const row2 = document.createElement('tr');
+          row2.innerHTML = `
+            <td class=\"center\">MPM</td>
+            <td class=\"center\">${mpmTH ?? '-'}</td>
+            <td class=\"center\">${mpmIA ?? '-'}</td>
+            <td class=\"center\">${mpmPR ?? '-'}</td>
+            <td class=\"center\">${gr ?? '-'}</td>
+            <td class=\"center\">${mpm ?? '-'}</td>`;
+
+          const row3 = document.createElement('tr');
+          row3.innerHTML = `
+            <td class=\"center\">MM</td>
+            <td class=\"center\">${mmTH ?? '-'}</td>
+            <td class=\"center\">${mmIA ?? '-'}</td>
+            <td class=\"center\">${mmPR ?? '-'}</td>
+            <td class=\"center\">${gr ?? '-'}</td>
+            <td class=\"center\">${mm ?? '-'}</td>`;
+
+          tbody.appendChild(row1);
+          tbody.appendChild(row2);
+          tbody.appendChild(row3);
+        };
+        (Array.isArray(papers) ? papers : []).forEach((p, idx) => buildRows(p, idx));
+      }
+
+      // Footer: prefer API totals, else computed
+      const apiTotal = get(rec, 'totalmarks', get(rec, 'resultSummary.totalMarks', null));
+      const apiTotalMax = get(rec, 'totalmaxmarks', get(rec, 'resultSummary.totalMax', null));
+      const totalCell = document.querySelector('.marks tfoot td.center');
+      if (totalCell) {
+        const denom = (apiTotalMax != null && apiTotalMax !== '') ? apiTotalMax : (sumMax || (Array.isArray(papers) ? papers.length * 100 : 0));
+        if (apiTotal != null && apiTotal !== '') {
+          totalCell.textContent = `${apiTotal}/${denom}`;
+        } else {
+          totalCell.textContent = `${sumObtained}/${denom}`;
+        }
+      }
+
+      const resultText = get(rec, 'resultStatus', get(rec, 'resultSummary.result', ''));
+      const footerRows = document.querySelectorAll('.footer-info .detail-row');
+      if (footerRows[0]) { const spans = footerRows[0].querySelectorAll('span'); if (spans[2]) spans[2].textContent = resultText || spans[2].textContent; }
+      return true;
+    } catch (e) {
+      console.warn('Render failed', e);
+      return false;
+    }
+  };
+
+  // If render fails, redirect to no-records-found page
+  const handleRenderFailure = () => {
+    const currentUrl = new URL(window.location.href);
+    const noRecordsUrl = new URL('no-records-found.html', currentUrl.origin);
+    noRecordsUrl.search = currentUrl.search;
+    window.location.href = noRecordsUrl.toString();
+  };
+
+  try {
+    // 1) Try cached record first to avoid blank page
+    try {
+      const cached = localStorage.getItem('pdfRecord');
+      if (cached) {
+        const rec = JSON.parse(cached);
+        // Only render cached if it matches current URL params (resultHash)
+        const urlTmp = new URL(window.location.href);
+        const p = new URLSearchParams(urlTmp.search);
+        const pHash = p.get('resultHash');
+        const recHash = rec?.resultHash || rec?.hash || '';
+        if (pHash && recHash && recHash === pHash) {
+          if (!render(rec)) {
+            handleRenderFailure();
+          }
+          return; // Only render if hash matches
+        }
+      }
+    } catch {}
+
+    // 2) Then attempt API fetch; if it succeeds, re-render with fresh data
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const enrollmentNo = params.get('enrollmentNo') || params.get('enrollment');
+    const cycle = params.get('cycle');
+    const examMonth = params.get('examMonth');
+    const examYear = params.get('examYear');
+    const examType = params.get('examType');
+    const resultHash = params.get('resultHash');
+
+    console.log('URL Parameters:', { enrollmentNo, cycle, examMonth, examYear, examType, resultHash });
+
+    // Build canonical URL used for QR (include only non-empty params, keep stable order)
+    const canonical = new URL(window.location.origin + '/result.html');
+    const qrParams = new URLSearchParams();
+    if (enrollmentNo) qrParams.append('enrollmentNo', enrollmentNo);
+    if (cycle) qrParams.append('cycle', cycle);
+    if (examMonth) qrParams.append('examMonth', examMonth);
+    if (examYear) qrParams.append('examYear', examYear);
+    if (examType) qrParams.append('examType', examType);
+    if (resultHash) qrParams.append('resultHash', resultHash);
+    canonical.search = qrParams.toString();
+    const canonicalUrl = canonical.toString();
+
+    const apiBase = 'http://135.235.51.143:3002/api/academic';
+    const getJson = async (u) => { const r = await fetch(u); const j = await r.json(); return j; };
+    let fetched = null;
+    let partialMatch = null;
+
+    // 1. Try to find record by hash (exact match)
+    if (resultHash) {
+      try {
+        const all = await getJson(`${apiBase}/records`);
+        const listAll = Array.isArray(all?.data) ? all.data : Array.isArray(all) ? all : Array.isArray(all?.records) ? all.records : [];
+        const norm = (s) => (typeof s === 'string' ? s.trim() : s);
+        fetched = (listAll || []).find(r => {
+          const candidates = [r?.resultHash, r?.hash, r?.result_hash, r?.blockchainHash, r?.txHash, r?.recordHash, r?.id, r?.recordId];
+          return candidates.some(v => norm(v) && norm(v) === norm(resultHash));
+        });
+        console.log('Hash search result:', fetched);
+      } catch (e) {
+        console.warn('Hash search failed:', e);
+      }
+    }
+
+    // 2. Try to find partial match (by enrollment/rollno) - FIXED SEARCH
+    if (enrollmentNo) {
+      try {
+        // First try the enrollment endpoint
+        const j = await getJson(`${apiBase}/records/enrollment/${encodeURIComponent(enrollmentNo)}`);
+        let list = Array.isArray(j?.data) ? j.data : Array.isArray(j) ? j : [];
+        console.log('Enrollment endpoint result:', list);
+        
+        // If enrollment endpoint returns empty, search all records by enrollmentNo and rollno
+        if (list.length === 0) {
+          console.log('Enrollment endpoint empty, searching all records...');
+          const all = await getJson(`${apiBase}/records`);
+          const allRecords = Array.isArray(all?.data) ? all.data : Array.isArray(all) ? all : Array.isArray(all?.records) ? all.records : [];
+          list = allRecords.filter(record => {
+            const enrollMatch = record?.enrollmentNo === enrollmentNo || record?.enrollmentno === enrollmentNo;
+            const rollMatch = record?.rollno === enrollmentNo || record?.rollNo === enrollmentNo;
+            return enrollMatch || rollMatch;
+          });
+          console.log('All records search result:', list);
+        }
+        
+        if (list && list.length > 0) {
+          // First try strict matching
+          partialMatch = list.find(record => {
+            const enrollOk = (record.examRollNumber === enrollmentNo) || (record.rollno === enrollmentNo) || (record.enrollmentNo === enrollmentNo);
+            const cycleOk = cycle ? (record.examination?.semester === cycle || record.cycle === cycle) : true;
+            let monthYearOk = true;
+            if (examMonth && examYear) {
+              const recMY = record.examination?.examMonthYear || record.examMonthYear || '';
+              monthYearOk = recMY.includes(examMonth) && recMY.includes(examYear);
+            }
+            const typeOk = examType ? ((record.examination?.examType === examType) || (record.examType === examType)) : true;
+            return enrollOk && cycleOk && monthYearOk && typeOk;
+          });
+          
+          // If no strict match, try relaxed matching (just enrollment/rollno)
+          if (!partialMatch) {
+            partialMatch = list.find(record => {
+              const enrollOk = (record.examRollNumber === enrollmentNo) || (record.rollno === enrollmentNo) || (record.enrollmentNo === enrollmentNo);
+              return enrollOk;
+            });
+          }
+          
+          console.log('Partial match found:', partialMatch);
+        }
+      } catch (e) {
+        console.warn('Enrollment search failed:', e);
+      }
+    }
+
+    // 3. Logic for mismatch and not found
+    console.log('Logic check:', { fetched, partialMatch, resultHash });
+    
+    // If we have a resultHash in URL but no exact match found, check for partial match
+    if (resultHash && !fetched && partialMatch) {
+      const currentHash = partialMatch?.resultHash || partialMatch?.hash || partialMatch?.result_hash || 
+        partialMatch?.blockchainHash || partialMatch?.txHash || partialMatch?.recordHash || 
+        partialMatch?.id || partialMatch?.recordId;
+      console.log('Hash comparison:', { resultHash, currentHash, match: resultHash === currentHash });
+      
+      if (currentHash && currentHash !== resultHash) {
+        console.log('Redirecting to mismatch page - hash mismatch');
+        const currentUrl = new URL(window.location.href);
+        const mismatchUrl = new URL('record-mismatch.html', currentUrl.origin);
+        mismatchUrl.search = currentUrl.search;
+        window.location.href = mismatchUrl.toString();
+        return;
+      }
+    }
+
+    if (fetched) {
+      console.log('Rendering fetched record');
+      render(fetched);
+    } else if (partialMatch) {
+      console.log('Rendering partial match');
+      render(partialMatch);
+    } else {
+      console.log('No record found, redirecting to no-records');
+      handleRenderFailure();
+    }
+  } catch (e) {
+    console.warn('PDF populate failed', e);
+    handleRenderFailure();
+  }
+})();
+</script>
+<script src="/result-qr.js"></script>
+</html>

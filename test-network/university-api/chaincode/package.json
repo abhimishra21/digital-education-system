@@ -1,0 +1,29 @@
+{
+  "name": "exam-management-chaincode",
+  "version": "1.0.0",
+  "description": "Exam Management Chaincode for Hyperledger Fabric",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "fabric-chaincode-node start"
+  },
+  "keywords": [
+    "hyperledger",
+    "fabric",
+    "chaincode",
+    "student",
+    "admission",
+    "university"
+  ],
+  "author": "University System",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "fabric-contract-api": "^2.5.0",
+    "fabric-shim": "^2.5.0",
+    "json-stringify-deterministic": "^1.0.0",
+    "sort-keys-recursive": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+} 

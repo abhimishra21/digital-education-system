@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HPU - Record Mismatched</title>
+<style>
+  /* Page setup */
+  @page { size: A4; margin: 16mm; }
+  body { 
+    font-family: Arial, Helvetica, sans-serif; 
+    background: #efefef; 
+    margin: 0;
+    padding: 0;
+  }
+  
+  .page {
+    width: 210mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    margin: 8mm auto;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 0 2mm rgba(0,0,0,0.08);
+    padding: 10mm;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('hpu_logo.png') center/60% auto no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    transform: rotate(-0.5deg);
+  }
+
+  .title-block { 
+    text-align: center; 
+    border: 1px solid #000; 
+    padding: 8mm 4mm 12mm 4mm; 
+    position: relative; 
+    overflow: visible; 
+  }
+  
+  .title-block .badge { 
+    position: absolute; 
+    left: 6mm; 
+    top: 4.5mm; 
+    width: 16.5mm; 
+    height: 16.5mm; 
+    background: url('hpu_logo.png') center/contain no-repeat; 
+    border: 0; 
+    border-radius: 0; 
+  }
+  
+  .title-block h1 { 
+    font-size: 16px; 
+    margin: 0; 
+    font-weight: 700; 
+  }
+  
+  .title-block h2 { 
+    font-size: 12px; 
+    margin: 2px 0 0; 
+    font-weight: 700; 
+  }
+  
+  .title-block h3 { 
+    font-size: 12px; 
+    margin: 2px 0 0; 
+    font-weight: 700; 
+  }
+
+  .mismatch-content {
+    border: 1px solid #000;
+    border-top: 0;
+    padding: 20mm;
+    text-align: center;
+    min-height: 150mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mismatch-icon {
+    margin-bottom: 8mm;
+    font-size: 48px;
+    text-align: center;
+  }
+  
+  .mismatch-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #856404;
+    margin-bottom: 4mm;
+  }
+  
+  .mismatch-message {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 6mm;
+    max-width: 120mm;
+    line-height: 1.5;
+  }
+  
+  .mismatch-action {
+    font-size: 16px;
+    font-weight: 700;
+    color: #dc3545;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 4mm;
+    border-radius: 2mm;
+    margin-bottom: 6mm;
+  }
+  
+  .qr-info {
+    font-size: 12px;
+    color: #495057;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 3mm;
+    border-radius: 2mm;
+    margin-top: 4mm;
+  }
+  
+  .note { 
+    font-size: 10px; 
+    color: #333; 
+    margin-top: 4mm; 
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="title-block">
+      <div class="badge" aria-label="HPU Logo"></div>
+      <h1>Himachal Pradesh University</h1>
+      <h2>NAAC Accredited 'A' Grade University</h2>
+      <h3>Result - Cum - Detailed Marks Certificate</h3>
+    </div>
+
+    <div class="mismatch-content">
+      <div class="mismatch-icon">⚠️</div>
+      <div class="mismatch-title">Record Mismatched</div>
+      <div class="mismatch-message">
+        Your academic record exists in our system but the QR code on your marksheet 
+        contains outdated information. The university has updated your marks and 
+        generated a new record.
+      </div>
+      <div class="mismatch-action">
+        Get your marksheet updated at university or<br>
+        Collect your updated marksheet from university
+      </div>
+      <div class="qr-info">
+        <strong>QR Code Information:</strong><br>
+        <span id="qr-details">Unable to retrieve QR code details</span>
+      </div>
+    </div>
+
+    <div class="note">
+      This is a Computer generated document. Please contact the examination department 
+      to obtain your updated marksheet with the current record information.
+    </div>
+  </div>
+
+  <script>
+    // Extract QR code information from URL parameters for display
+    (() => {
+      try {
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        
+        // Get all parameters for display
+        const enrollmentNo = params.get('enrollmentNo') || params.get('enrollment');
+        const cycle = params.get('cycle');
+        const examMonth = params.get('examMonth');
+        const examYear = params.get('examYear');
+        const examType = params.get('examType');
+        const resultHash = params.get('resultHash');
+        
+        // Build readable QR details
+        const qrDetails = [];
+        if (enrollmentNo) qrDetails.push(`Enrollment: ${enrollmentNo}`);
+        if (cycle) qrDetails.push(`Semester: ${cycle}`);
+        if (examMonth && examYear) qrDetails.push(`Exam: ${examMonth} ${examYear}`);
+        if (examType) qrDetails.push(`Type: ${examType}`);
+        if (resultHash) qrDetails.push(`Hash: ${resultHash.substring(0, 8)}...`);
+        
+        const qrDetailsElement = document.getElementById('qr-details');
+        if (qrDetailsElement && qrDetails.length > 0) {
+          qrDetailsElement.innerHTML = qrDetails.join(' | ');
+        } else {
+          qrDetailsElement.textContent = 'No QR code parameters detected';
+        }
+        
+      } catch (e) {
+        console.warn('Failed to parse QR parameters:', e);
+      }
+    })();
+  </script>
+</body>
+</html> 

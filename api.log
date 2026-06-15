@@ -1,0 +1,18 @@
+nohup: ignoring input
+API running on http://0.0.0.0:3002
+✅ Academic Records Blockchain connection established
+📋 Channel: university
+📦 Chaincode: academic-records
+🚀 Academic Records API Server running on port 3002
+📚 Channel: university
+📦 Chaincode: academic-records
+🔗 Blockchain: Connected
+🌐 API base URL: http://localhost:3002/api/academic
+URL decoded data: wAPbnX7vhHfcNuxo6nxUwhLOGEqHb9aDhx5uUCibqT0CtfoAhUieNizG/31dQq9qvZaaHkcIfvth4beoAmP1kt7d/5RizZmdbzNFo/fRv+nRgjck7Yap8RtIwgwiNcZJBFF0cB5XcSNFwqx+SU4W2RMb8hvgH8Z9OKJOOsGN7g/uPXl4ZyuRsFP2buVgS5FWCH6EKunB1jC5IAURXL5IlEl3d/4F5pUIFHjfE2uQMglPnLh1/XJPJZJeyfeQHbk2
+Decrypted QR data: {"enrollmentNo":"H22R359569","cycle":"SECOND+SEMESTER","examMonth":"JUNE","examYear":"2023","examType":"FRESH","resultHash":"F8A0CFE449F42EE589FCFCAB03382D048AFEB21518DD3458CE2E670301F7BD49"}
+Original cycle: SECOND+SEMESTER
+Normalized cycle: SECOND SEMESTER
+URL decoded data: wAPbnX7vhHfcNuxo6nxUwhLOGEqHb9aDhx5uUCibqT0CtfoAhUieNizG/31dQq9qvZaaHkcIfvth4beoAmP1kt7d/5RizZmdbzNFo/fRv+nRgjck7Yap8RtIwgwiNcZJBFF0cB5XcSNFwqx+SU4W2RMb8hvgH8Z9OKJOOsGN7g/uPXl4ZyuRsFP2buVgS5FWCH6EKunB1jC5IAURXL5IlEl3d/4F5pUIFHjfE2uQMglPnLh1/XJPJZJeyfeQHbk2"
+Decrypted QR data: {"enrollmentNo":"H22R359569","cycle":"SECOND+SEMESTER","examMonth":"JUNE","examYear":"2023","examType":"FRESH","resultHash":"F8A0CFE449F42EE589FCFCAB03382D048AFEB21518DD3458CE2E670301F7BD49"}
+Original cycle: SECOND+SEMESTER
+Normalized cycle: SECOND SEMESTER

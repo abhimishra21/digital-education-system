@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HPU - No Records Found</title>
+<style>
+  /* Page setup */
+  @page { size: A4; margin: 16mm; }
+  body { 
+    font-family: Arial, Helvetica, sans-serif; 
+    background: #efefef; 
+    margin: 0;
+    padding: 0;
+  }
+  
+  .page {
+    width: 210mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    margin: 8mm auto;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 0 2mm rgba(0,0,0,0.08);
+    padding: 10mm;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('hpu_logo.png') center/60% auto no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    transform: rotate(-0.5deg);
+  }
+  
+
+  .title-block { 
+    text-align: center; 
+    border: 1px solid #000; 
+    padding: 8mm 4mm 12mm 4mm; 
+    position: relative; 
+    overflow: visible; 
+  }
+  
+  .title-block .badge { 
+    position: absolute; 
+    left: 6mm; 
+    top: 4.5mm; 
+    width: 16.5mm; 
+    height: 16.5mm; 
+    background: url('hpu_logo.png') center/contain no-repeat; 
+    border: 0; 
+    border-radius: 0; 
+  }
+  
+  .title-block h1 { 
+    font-size: 16px; 
+    margin: 0; 
+    font-weight: 700; 
+  }
+  
+  .title-block h2 { 
+    font-size: 12px; 
+    margin: 2px 0 0; 
+    font-weight: 700; 
+  }
+  
+  .title-block h3 { 
+    font-size: 12px; 
+    margin: 2px 0 0; 
+    font-weight: 700; 
+  }
+  
+
+  .no-records-content {
+    border: 1px solid #000;
+    border-top: 0;
+    padding: 20mm;
+    text-align: center;
+    min-height: 150mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .no-records-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 4mm;
+  }
+  
+  .no-records-message {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 6mm;
+    max-width: 120mm;
+    line-height: 1.5;
+  }
+  
+  .qr-info {
+    font-size: 12px;
+    color: #495057;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 3mm;
+    border-radius: 2mm;
+    margin-top: 4mm;
+  }
+  
+  .note { 
+    font-size: 10px; 
+    color: #333; 
+    margin-top: 4mm; 
+  }
+
+  /* Loading indicator */
+  .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Success message */
+  .success-message {
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  /* Error message */
+  .error-message {
+    color: #dc3545;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="title-block">
+      <div class="badge" aria-label="HPU Logo"></div>
+      <h1>Himachal Pradesh University</h1>
+      <h2>NAAC Accredited 'A' Grade University</h2>
+      <h3>Result - Cum - Detailed Marks Certificate</h3>
+    </div>
+
+    <div class="no-records-content">
+      <div class="no-records-title" id="page-title">No Records Found</div>
+      <div class="no-records-message" id="page-message">
+        The scanned QR code data is not currently available in our system. 
+        This could be due to the record not being processed yet or the data 
+        being temporarily unavailable.
+      </div>
+      <div class="qr-info">
+        <strong>QR Code Information:</strong><br>
+        <span id="qr-details">Processing QR code data...</span>
+      </div>
+    </div>
+
+    <div class="note">
+      This is a Computer generated document. Please contact the examination department 
+      if you believe this is an error or if you need assistance.
+    </div>
+  </div>
+
+  <script>
+    // QR Scanner functionality for no-records-found page
+    class NoRecordsQRScanner {
+      constructor() {
+        this.apiBaseUrl = 'http://135.235.51.143:3002/api/academic';
+        this.init();
+      }
+
+      init() {
+        // Check if we have encrypted data in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const encryptedData = urlParams.get('data');
+        
+        if (encryptedData) {
+          console.log('Found encrypted data in URL, processing...');
+          this.handleEncryptedQR(encryptedData);
+        } else {
+          console.log('No encrypted data found in URL');
+          this.updateQRDetails('No QR code data detected');
+        }
+      }
+
+      async handleEncryptedQR(encryptedData) {
+        try {
+          this.updateQRDetails('Decrypting QR code data...');
+          console.log('Processing encrypted QR data...');
+          
+          // Call the backend decryption API
+          const response = await this.decryptQRData(encryptedData);
+          
+          if (response.success && response.data) {
+            this.displayMarksheet(response.data);
+          } else {
+            this.showNoRecordsFound(response.error || 'No records found');
+          }
+        } catch (error) {
+          console.error('Failed to process QR data:', error);
+          this.showNoRecordsFound('Failed to process QR code data: ' + error.message);
+        }
+      }
+
+      async decryptQRData(encryptedData) {
+        const url = `${this.apiBaseUrl}/records/decrypt-url?data=${encodeURIComponent(encryptedData)}`;
+        console.log('Calling API:', url);
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        console.log('API Response:', data);
+        return data;
+      }
+
+      displayMarksheet(recordData) {
+        const { data: primaryRecord, allSemesters, source, qrData } = recordData;
+        
+        console.log('Displaying marksheet for:', primaryRecord);
+        console.log('Decrypted QR data:', qrData);
+        
+        // Update the page to show the actual marksheet
+        this.updatePageContent(primaryRecord, allSemesters, qrData);
+        
+        // Show success message
+        this.showSuccessMessage('Marksheet loaded successfully!');
+      }
+
+      updatePageContent(primaryRecord, allSemesters, qrData) {
+        // Update page title
+        const titleElement = document.getElementById('page-title');
+        if (titleElement) {
+          titleElement.textContent = 'Result - Cum - Detailed Marks Certificate';
+        }
+
+        // Update page message
+        const messageElement = document.getElementById('page-message');
+        if (messageElement) {
+          messageElement.innerHTML = `
+            <strong>Student Details:</strong><br>
+            Name: ${primaryRecord.cname || 'N/A'}<br>
+            Enrollment: ${primaryRecord.enrollmentNo || 'N/A'}<br>
+            Roll No: ${primaryRecord.rollno || 'N/A'}<br>
+            Semester: ${primaryRecord.cycle || 'N/A'}<br>
+            Result: ${primaryRecord.resultStatus || 'N/A'}<br>
+            Total Marks: ${primaryRecord.totalmarks || 'N/A'}/${primaryRecord.totalmaxmarks || 'N/A'}
+          `;
+        }
+
+        // Update QR details with decrypted information
+        this.updateQRDetails(`
+          <strong>Decrypted QR Data:</strong><br>
+          Enrollment: ${qrData.enrollmentNo || 'N/A'}<br>
+          Semester: ${qrData.cycle || 'N/A'}<br>
+          Exam: ${qrData.examMonth || 'N/A'} ${qrData.examYear || 'N/A'}<br>
+          Type: ${qrData.examType || 'N/A'}<br>
+          Source: ${source || 'N/A'}
+        `);
+      }
+
+      showNoRecordsFound(message) {
+        // Keep the original "No Records Found" display
+        const titleElement = document.getElementById('page-title');
+        if (titleElement) {
+          titleElement.textContent = 'No Records Found';
+        }
+
+        const messageElement = document.getElementById('page-message');
+        if (messageElement) {
+          messageElement.textContent = message;
+        }
+
+        this.updateQRDetails('Unable to retrieve QR code details');
+      }
+
+      updateQRDetails(details) {
+        const qrDetailsElement = document.getElementById('qr-details');
+        if (qrDetailsElement) {
+          qrDetailsElement.innerHTML = details;
+        }
+      }
+
+      showSuccessMessage(message) {
+        const qrDetailsElement = document.getElementById('qr-details');
+        if (qrDetailsElement) {
+          qrDetailsElement.innerHTML += `<br><span class="success-message">✅ ${message}</span>`;
+        }
+      }
+    }
+
+    // Initialize QR Scanner when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Initializing QR Scanner for no-records-found page...');
+      window.noRecordsQRScanner = new NoRecordsQRScanner();
+    });
+
+    // Also initialize immediately if DOM is already loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        window.noRecordsQRScanner = new NoRecordsQRScanner();
+      });
+    } else {
+      window.noRecordsQRScanner = new NoRecordsQRScanner();
+    }
+  </script>
+</body>
+</html> 
